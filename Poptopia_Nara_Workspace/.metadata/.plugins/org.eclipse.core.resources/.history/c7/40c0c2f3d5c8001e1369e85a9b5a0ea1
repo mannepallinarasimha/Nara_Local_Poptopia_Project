@@ -1,0 +1,11 @@
+package com.poptopia.promotion.models;
+
+import java.time.LocalDateTime;
+
+public class PromotionCreateRequest {
+	private Integer regionId;
+	private Integer epsilonId;
+	private String moduleKey;
+	private String name;
+	private String localTimeZone;
+}

@@ -1,0 +1,17 @@
+package com.poptopia.promotion.APIResponses;
+
+import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ApiListResponse<T> {
+	
+	private String message;
+	private List<T> Data;
+
+}

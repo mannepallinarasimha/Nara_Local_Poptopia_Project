@@ -1,0 +1,11 @@
+package com.poptopia.promotion.models;
+
+import java.util.List;
+
+public class PromotionRequest {
+
+	private Integer clusterId;
+	private List<PromotionCreateRequest> promotion;
+	private MechanicRequest mechanic;
+	private List<SettingRequest> setting;
+}

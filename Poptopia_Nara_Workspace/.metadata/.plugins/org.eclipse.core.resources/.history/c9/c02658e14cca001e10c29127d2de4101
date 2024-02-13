@@ -1,0 +1,58 @@
+package com.poptopia.promotion.service.impl;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.poptopia.promotion.APIResponses.ApiListResponse;
+import com.poptopia.promotion.entity.Promotion;
+import com.poptopia.promotion.models.MechanicRequest;
+import com.poptopia.promotion.models.PromotionCreateRequest;
+import com.poptopia.promotion.models.PromotionRequest;
+import com.poptopia.promotion.models.PromotionResponse;
+import com.poptopia.promotion.repository.PromotionRepository;
+import com.poptopia.promotion.service.PromotionService;
+
+@Service
+public class PromotionServiceImpl implements PromotionService {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PromotionRepository promotionRepository;
+
+	@Override
+	public ApiListResponse<PromotionResponse> createPromotion(PromotionRequest promotionRequest) {
+		List<PromotionResponse> promotionResponseList = new ArrayList<>();
+		
+		List<PromotionCreateRequest> requestedPromotionsList = promotionRequest.getPromotion();
+		Promotion promotion = new Promotion();
+		for (PromotionCreateRequest promotionCreateRequest : requestedPromotionsList) {
+			PromotionResponse promotionResponse = new PromotionResponse();
+			
+			promotion.setCreatedDate(LocalDateTime.now());
+			promotion.setModifiedDate(LocalDateTime.now());
+
+			promotion.setLocalTimeZone(promotionCreateRequest.getLocalTimeZone());
+			promotion.setModuleKey(promotionCreateRequest.getModuleKey());
+			promotion.setEpsilonId(promotionCreateRequest.getEpsilonId());
+			promotion.setName(promotionCreateRequest.getName());
+			
+		}
+		MechanicRequest mechanic = promotionRequest.getMechanic();
+		promotion.setAttributeCode(mechanic.getAttributeCode());
+		promotion.setAttributeValue(mechanic.getAttributeValue());
+		promotion.setStartDate(LocalDateTime.now());
+		promotion.setEndDate(LocalDateTime.now());
+		Promotion savedPromotion = promotionRepository.save(promotion);
+		promotionResponseList.add(savedPromotion);
+		
+		return new ApiListResponse<PromotionResponse>("Created Promotions are...", promotionResponseList, promotionResponseList.size());
+	}
+
+}

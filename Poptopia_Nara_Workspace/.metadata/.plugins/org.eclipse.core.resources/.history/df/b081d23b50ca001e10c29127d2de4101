@@ -1,0 +1,19 @@
+package com.poptopia.promotion.constants;
+
+import lombok.Data;
+
+
+public enum CodeConstants {
+WM("wm");
+
+private String status;
+
+private CodeConstants(String status) {
+	this.status = status;
+}
+
+public String getStatus() {
+	return status;
+}
+
+}

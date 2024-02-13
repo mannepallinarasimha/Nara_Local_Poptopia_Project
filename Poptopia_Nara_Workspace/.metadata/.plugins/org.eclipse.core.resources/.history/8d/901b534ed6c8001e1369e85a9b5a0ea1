@@ -1,0 +1,7 @@
+package com.poptopia.promotion.models;
+
+public class SettingRequest {
+
+	private String name;
+	private Integer value;
+}

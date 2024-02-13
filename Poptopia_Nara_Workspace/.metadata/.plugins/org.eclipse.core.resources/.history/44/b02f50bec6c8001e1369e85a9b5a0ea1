@@ -1,0 +1,7 @@
+package com.poptopia.promotion.service.impl;
+
+import com.poptopia.promotion.service.PromotionClusterService;
+
+public class PromotionClusterServiceImpl implements PromotionClusterService {
+
+}

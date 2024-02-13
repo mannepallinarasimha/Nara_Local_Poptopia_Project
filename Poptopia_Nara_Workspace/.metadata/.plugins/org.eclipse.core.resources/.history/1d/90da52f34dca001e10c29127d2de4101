@@ -1,0 +1,17 @@
+package com.poptopia.promotion.exceptions;
+
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+
+import lombok.Data;
+
+@Data
+public class ApiException extends RuntimeException {
+    private final HttpStatus status;
+    private final Integer errorCode;
+    private final String message;
+    private Map<String, Object> metaData;
+//    private ApiLogger logger;
+
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.JoinTable"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.JoinColumn"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.entity.PromotionCluster"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.entity.Promotion"/>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.models.responses.ApiResponse"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.service.PromotionClusterService"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.repository.PromotionClusterRepository"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonProperty"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonInclude"/>
+    <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonInclude.Include"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.models.PromotionClusterRequest"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.service.RegionService"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.APIResponses.ApiResponse"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.models.RegionRequest"/>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.annotations.OpenAPIDefinition"/>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.annotations.info.Contact"/>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.annotations.security.SecurityRequirement"/>
+    <fullyQualifiedTypeName name="io.swagger.v3.oas.annotations.info.Info"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.repository.RegionRepository"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.service.PromotionService"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.entity.Region"/>
+    <fullyQualifiedTypeName name="org.hibernate.annotations.Formula"/>
+    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
+    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.APIResponses.ApiListResponse"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.models.PromotionResponse"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
+    <fullyQualifiedTypeName name="com.poptopia.promotion.repository.PromotionRepository"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+</qualifiedTypeNameHistroy>

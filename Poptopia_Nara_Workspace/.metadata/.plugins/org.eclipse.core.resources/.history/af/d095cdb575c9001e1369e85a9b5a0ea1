@@ -1,0 +1,45 @@
+package com.poptopia.promotion.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.poptopia.promotion.APIResponses.ApiListResponse;
+import com.poptopia.promotion.models.PromotionCreateRequest;
+import com.poptopia.promotion.models.PromotionRequest;
+import com.poptopia.promotion.models.PromotionResponse;
+import com.poptopia.promotion.repository.PromotionRepository;
+import com.poptopia.promotion.service.PromotionService;
+
+@Service
+public class PromotionServiceImpl implements PromotionService {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PromotionRepository promotionRepository;
+
+	@Override
+	public ApiListResponse<PromotionResponse> createPromotion(PromotionRequest promotionRequest) {
+		List<PromotionResponse> promotionResponseList = new ArrayList<>();
+		PromotionResponse promotionResponse = new PromotionResponse();
+		List<PromotionCreateRequest> requestedPromotionsList = promotionRequest.getPromotion();
+		for (PromotionCreateRequest promotionCreateRequest : requestedPromotionsList) {
+			modelMapper.map(promotionCreateRequest, promotionResponse);
+		}
+		System.out.println(promotionResponse);
+		
+		
+		
+		
+		
+		promotionResponseList.add(promotionResponse);
+		
+		return new ApiListResponse<PromotionResponse>("Created Promotions are...", promotionResponseList, promotionResponseList.size());
+	}
+
+}

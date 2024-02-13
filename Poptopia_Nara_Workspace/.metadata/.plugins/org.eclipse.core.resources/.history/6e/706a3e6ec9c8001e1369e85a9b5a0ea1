@@ -1,0 +1,18 @@
+package com.poptopia.promotion.models;
+
+import java.util.List;
+
+import com.poptopia.promotion.entity.Promotion;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PromotionClusterRequest {
+
+	private String clusterName;
+	private List<Promotion> promotions;
+}

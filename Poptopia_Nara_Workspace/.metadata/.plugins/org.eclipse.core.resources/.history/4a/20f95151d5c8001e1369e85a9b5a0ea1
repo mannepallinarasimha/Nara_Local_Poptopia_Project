@@ -1,0 +1,5 @@
+package com.poptopia.promotion.models;
+
+public class PromotionRequest {
+
+}

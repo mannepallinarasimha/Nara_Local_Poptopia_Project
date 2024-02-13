@@ -1,0 +1,42 @@
+package com.poptopia.promotion.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.poptopia.promotion.APIResponses.ApiListResponse;
+import com.poptopia.promotion.entity.Region;
+import com.poptopia.promotion.models.RegionRequest;
+import com.poptopia.promotion.repository.RegionRepository;
+import com.poptopia.promotion.service.RegionService;
+
+@Service
+public class RegionServiceImpl implements RegionService {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private RegionRepository regionRepository;
+	
+	@Override
+	public ApiListResponse<Region> createRegions(List<RegionRequest> regionRequestList) {
+		List<Region> regionsList = new ArrayList<>();
+		Region region = new Region();
+//		modelMapper.map(regionRequestList, regionsList);
+		for (RegionRequest regionRequest : regionRequestList) {
+			modelMapper.map(regionRequest, region);
+			System.out.println(region);
+			regionsList.add(region);
+		}
+		System.out.println(regionsList.toString());
+		List<Region> saveAll = regionRepository.saveAll(regionsList);
+		return new ApiListResponse<Region>("Created Regions are...", saveAll, saveAll.size());
+	}
+
+
+
+}

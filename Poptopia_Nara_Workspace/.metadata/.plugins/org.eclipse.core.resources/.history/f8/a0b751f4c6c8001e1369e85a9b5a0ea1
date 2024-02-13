@@ -1,0 +1,15 @@
+package com.poptopia.promotion.service.impl;
+
+import com.poptopia.promotion.APIResponses.ApiResponse;
+import com.poptopia.promotion.entity.PromotionCluster;
+import com.poptopia.promotion.service.PromotionClusterService;
+
+public class PromotionClusterServiceImpl implements PromotionClusterService {
+
+	@Override
+	public ApiResponse<PromotionCluster> createPromotionCluster(String clusterName) {
+		PromotionCluster promotionCluster = new PromotionCluster();
+		return new ApiResponse<PromotionCluster>("The Cluster Details are...", promotionCluster);
+	}
+
+}

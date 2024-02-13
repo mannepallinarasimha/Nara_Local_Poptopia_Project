@@ -1,0 +1,164 @@
+package com.poptopia.promotion.service.impl;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import com.poptopia.promotion.APIResponses.ApiListResponse;
+import com.poptopia.promotion.entity.Promotion;
+import com.poptopia.promotion.entity.PromotionCluster;
+import com.poptopia.promotion.entity.Region;
+import com.poptopia.promotion.exceptions.ApiException;
+import com.poptopia.promotion.models.MechanicRequest;
+import com.poptopia.promotion.models.PromotionCreateRequest;
+import com.poptopia.promotion.models.PromotionRequest;
+import com.poptopia.promotion.models.PromotionResponse;
+import com.poptopia.promotion.models.SettingRequest;
+import com.poptopia.promotion.repository.PromotionRepository;
+import com.poptopia.promotion.repository.RegionRepository;
+import com.poptopia.promotion.service.PromotionService;
+
+@Service
+public class PromotionServiceImpl implements PromotionService {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PromotionRepository promotionRepository;
+	
+	@Autowired
+	private RegionRepository regionRepository;
+
+//	@Override
+//	public ApiListResponse<PromotionResponse> createPromotion(PromotionRequest promotionRequest) {
+//		List<PromotionResponse> promotionResponseList = new ArrayList<>();
+//		
+//		List<PromotionCreateRequest> requestedPromotionsList = promotionRequest.getPromotion();
+//		Promotion promotion = new Promotion();
+//		for (PromotionCreateRequest promotionCreateRequest : requestedPromotionsList) {
+//			PromotionResponse promotionResponse = new PromotionResponse();
+//			
+//			promotion.setCreatedDate(LocalDateTime.now());
+//			promotion.setModifiedDate(LocalDateTime.now());
+//
+//			promotion.setLocalTimeZone(promotionCreateRequest.getLocalTimeZone());
+//			promotion.setModuleKey(promotionCreateRequest.getModuleKey());
+//			promotion.setEpsilonId(promotionCreateRequest.getEpsilonId());
+//			promotion.setName(promotionCreateRequest.getName());
+//			
+//		}
+//		MechanicRequest mechanic = promotionRequest.getMechanic();
+//		promotion.setAttributeCode(mechanic.getAttributeCode());
+//		promotion.setAttributeValue(mechanic.getAttributeValue());
+//		promotion.setStartDate(LocalDateTime.now());
+//		promotion.setEndDate(LocalDateTime.now());
+//		Promotion savedPromotion = promotionRepository.save(promotion);
+//		promotionResponseList.add(savedPromotion);
+//		
+//		return new ApiListResponse<PromotionResponse>("Created Promotions are...", promotionResponseList, promotionResponseList.size());
+//	}
+	
+	@Override
+	public ApiListResponse<PromotionResponse> createPromotion(PromotionRequest promotionCreateRequest) {
+//		createPromotionInputsValidation(promotionCreateRequest);
+//		createPromotionDuplicateValuesCheck(promotionCreateRequest.getPromotions());
+//		clusterIdValidation(promotionCreateRequest.getClusterId());
+		List<PromotionResponse> promotionResponseList = new ArrayList<>();
+		if (promotionCreateRequest.getPromotions().isEmpty()) {
+			throw new ApiException(HttpStatus.BAD_REQUEST, 400,
+					String.format("Required Promotions are Empty ", promotionResponseList));
+		}
+		List<PromotionCreateRequest> promotions = promotionCreateRequest.getPromotions();
+		for (PromotionCreateRequest promotionRequest : promotions) {
+
+//			promotionRegionIdValidation(promotionRequest.getRegionId());
+//			promotionModuleKeyValidation(promotionRequest.getModuleKey());
+//			promotionNameValidation(promotionRequest.getPromotionName());
+//			promotionEpsilonIdValidation(promotionRequest.getEpsilonId());
+
+		}
+		MechanicRequest mechanic = promotionCreateRequest.getMechanic();
+		final String df = "yyyy-MM-dd HH:mm:ss";
+		SimpleDateFormat simpleDateFormate = new SimpleDateFormat(df);
+		Date mechanicStartDate = null;
+		Date mechanicEndDate = null;
+		try {
+			mechanicStartDate = simpleDateFormate.parse(getRequiredStringDate(mechanic.getStartDate()));
+			mechanicEndDate = simpleDateFormate.parse(getRequiredStringDate(mechanic.getEndDate()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+//		mechanicValidattion(mechanic.getType(), mechanic.getStartDate(), mechanic.getEndDate());
+		String settingsValue = "";
+		List<SettingRequest> settings = promotionCreateRequest.getSettings();
+		for (SettingRequest promotionSetting : settings) {
+//			promotionSettingValidation(promotionSetting.getName(), promotionSetting.getValue());
+			settingsValue = promotionSetting.getValue();
+		}
+		Set<Promotion> setPromotions = new HashSet<>();
+		List<Promotion> promotionList = new ArrayList<>();
+		Promotion savedPromotion = new Promotion();
+		Date date = new Date();
+		LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		for (PromotionCreateRequest promotionRequest : promotions) {
+			Promotion promotion = new Promotion();
+			Region region = regionRepository.findById(promotionRequest.getRegionId())
+					.orElseThrow(() -> new ApiException(HttpStatus.BAD_REQUEST, 400,
+							String.format("Region with Region id \'%d\' not found", promotionRequest.getRegionId())));
+
+			promotion.setModuleKey(promotionRequest.getModuleKey());
+			promotion.setName(promotionRequest.getPromotionName());
+			promotion.setEpsilonId(promotionRequest.getEpsilonId());
+			promotion.setRegion(region);
+			promotion.setLocalTimeZone(promotionRequest.getLocalTimeZone());
+			promotion.setStartDate(mechanicStartDate);
+			promotion.setEndDate(mechanicEndDate);
+			promotion.setAttr1_code(mechanic.getAttr1_code());
+			promotion.setAttr1_value(mechanic.getAttr1_value());
+			promotion.setCreatedDate(date);
+			promotion.setModifiedDate(date);
+			promotion.setMaxLimit(1);
+			promotion.setCreatedDateTime(localDateTime);
+			promotion.setModifiedDateTime(localDateTime);
+			Optional<PromotionCluster> findById = promotionClusterRepo.findById(promotionCreateRequest.getClusterId());
+			if (findById.isPresent()) {
+				promotion.setPromotionCluster(findById.get());
+			} else {
+				throw new ApiException(HttpStatus.BAD_REQUEST, 400, String
+						.format("Cluster with ClusterId \'%d\'' is NOT exists. ",
+								promotionCreateRequest.getClusterId()));
+			}
+			savedPromotion = promotionRepo.save(promotion);
+
+			promotionList.add(savedPromotion);
+			setPromotions.add(savedPromotion);
+		}
+
+		if (mechanic.getType().equalsIgnoreCase(CodeConstants.WM.getStatus())) {
+			wmStartDateCalculation(mechanicStartDate, mechanicEndDate, setPromotions, settingsValue);
+		}
+		promotionResponseList = promotionResponseSetUp(promotionList, mechanic.getStartDate(), mechanic.getEndDate());
+
+		return new ApiListResponse<>("All promotions :--- ", promotionResponseList, promotionResponseList.size());
+	}
+	
+	public static String getRequiredStringDate(String str) {
+		String[] ts = str.split("T");
+		return ts[0] + " " + ts[1].substring(0, 8);
+	}
+
+}

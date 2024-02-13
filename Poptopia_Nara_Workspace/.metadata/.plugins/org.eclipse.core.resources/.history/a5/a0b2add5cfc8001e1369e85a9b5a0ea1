@@ -1,0 +1,12 @@
+package com.poptopia.promotion.config;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+
+@Component
+public class PoptopiaConfiguration {
+
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
+	}
+}
